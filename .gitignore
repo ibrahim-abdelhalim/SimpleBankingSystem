@@ -1,0 +1,17 @@
+# Build output
+build/
+bin/
+*.o
+*.obj
+*.exe
+*.out
+
+# Editor / IDE (local settings)
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Runtime data (keep the tracked sample bank.txt)
+*.log
