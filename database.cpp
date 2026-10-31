@@ -9,7 +9,7 @@ void Database::setDirectory(std::string fileDirectory)
 {
     if ("" == fileDirectory) 
     {
-        throw EmptyFileDirectory(); 
+        throw EmptyFileDirectory(__FILE__, __LINE__); 
     }
     else 
     {
@@ -23,7 +23,7 @@ void Database::saveAccounts(std::map<int, Account>& accounts)
 
     if (true == accounts.empty())
     {
-        throw EmptyAccounts();
+        throw EmptyAccounts(__FILE__, __LINE__);
     }
     else 
     {
@@ -31,7 +31,7 @@ void Database::saveAccounts(std::map<int, Account>& accounts)
         
         if (false == oufile.is_open())
         {
-            throw OpenFileStorage(); 
+            throw OpenFileStorage(__FILE__, __LINE__); 
         }
         else 
         {
@@ -69,7 +69,7 @@ std::map<int, Account> Database::loadAccounts()
     
     if (false == infile.is_open())
     {
-        throw OpenFileStorage(); 
+        throw OpenFileStorage(__FILE__, __LINE__); 
     }
     else 
     {
@@ -107,7 +107,7 @@ void Database::update(std::map<int, Account>& accounts)
 {
     if (true == accounts.empty())
     {
-        throw EmptyAccounts(); 
+        throw EmptyAccounts(__FILE__, __LINE__); 
     }
     else 
     {
@@ -126,20 +126,4 @@ void Database::update(std::map<int, Account>& accounts)
             throw; 
         }
     }
-}
-
-
-const char* EmptyFileDirectory::what()
-{
-    return "#Error: Empty file directory.";
-}
-
-const char* EmptyAccounts::what()
-{
-    return "#Error: Empty accounts."; 
-}
-
-const char* OpenFileStorage::what()
-{
-    return "#Error: Open file storage failure.";
 }
