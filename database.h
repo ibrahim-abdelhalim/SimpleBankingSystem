@@ -5,6 +5,7 @@
 #include <iostream> 
 #include "account.h"
 #include <map> 
+#include "exception.h"
 
 class Database
 {
@@ -22,22 +23,25 @@ class Database
 
 };
 
-class EmptyFileDirectory : public std::exception
+class EmptyFileDirectory : public BankException
 {
     public: 
-    const char* what(); 
+    EmptyFileDirectory(const char* const File, const int Line)
+        : BankException("#Error: Empty file directory.", File, Line) {}
 }; 
 
-class EmptyAccounts : public std::exception  
+class EmptyAccounts : public BankException  
 {
     public: 
-    const char* what(); 
+    EmptyAccounts(const char* const File, const int Line)
+        : BankException("#Error: Empty accounts.", File, Line) {}
 }; 
 
-class  OpenFileStorage : public std::exception 
+class  OpenFileStorage : public BankException 
 {
     public: 
-    const char* what(); 
+    OpenFileStorage(const char* const File, const int Line)
+        : BankException("#Error: Open file storage failure.", File, Line) {}
 };
 
 

@@ -12,11 +12,11 @@ void Bank::openAccount(std::string fname, std::string lname, long double  initia
 
     if (fname == "" || lname == "")
     {
-        throw EmptyName();
+        throw EmptyName(__FILE__, __LINE__);
     }
-    else if (initialBalance == 0.0L)
+    else if (initialBalance <= 0.0L)
     {
-        throw InvalidBalance(); 
+        throw InvalidBalance(__FILE__, __LINE__); 
     }
     else 
     {
@@ -44,7 +44,7 @@ void Bank::closeAccount(int id)
 
     if (itr == accounts.end()) 
     {
-        throw InvalidAccount(); 
+        throw InvalidAccount(__FILE__, __LINE__); 
     }
     else 
     {
@@ -72,7 +72,7 @@ long double  Bank::getAccountBalance(int id)
 
     if (itr == accounts.end()) 
     {
-        throw InvalidAccount(); 
+        throw InvalidAccount(__FILE__, __LINE__); 
     }
     else 
     {
@@ -91,7 +91,7 @@ std::string Bank::getAccountLastName(int id)
 
     if (itr == accounts.end()) 
     {
-        throw InvalidAccount(); 
+        throw InvalidAccount(__FILE__, __LINE__); 
     }
     else 
     {
@@ -110,7 +110,7 @@ std::string Bank::getAccountFirstName(int id)
 
     if (itr == accounts.end())
     {
-        throw InvalidAccount(); 
+        throw InvalidAccount(__FILE__, __LINE__); 
     }
     else 
     {
@@ -129,11 +129,11 @@ void Bank::deposit(int id, long double amount)
 
     if (itr == accounts.end())
     {
-        throw InvalidAccount(); 
+        throw InvalidAccount(__FILE__, __LINE__); 
     }
     else if (amount <= 0)
     {
-        throw InvalidAmount(); 
+        throw InvalidAmount(__FILE__, __LINE__); 
     }
     else 
     {
@@ -156,11 +156,11 @@ void Bank::withdraw(int id, long double amount)
 
     if (itr == accounts.end())
     {
-        throw InvalidAccount(); 
+        throw InvalidAccount(__FILE__, __LINE__); 
     }
     else if (amount <=  0) 
     {
-        throw InvalidAmount(); 
+        throw InvalidAmount(__FILE__, __LINE__); 
     }
     else 
     {
@@ -170,7 +170,7 @@ void Bank::withdraw(int id, long double amount)
 
         if (curAmount <  0)
         {
-            throw InvalidWithdrawAmount(); 
+            throw InvalidWithdrawAmount(__FILE__, __LINE__); 
         }
         else 
         {
@@ -186,7 +186,7 @@ void Bank::showAllAccounts()
 {
     if (true == accounts.empty()) 
     {
-        throw EmptyAccounts();  
+        throw EmptyAccounts(__FILE__, __LINE__);  
     }
     else 
     {
@@ -201,27 +201,3 @@ void Bank::showAllAccounts()
     }
 }
 
-const char* InvalidAccount::what()
-{
-    return "#Error: Invalid Account."; 
-}
-
-const char* EmptyName::what()
-{
-    return "#Error: Empty name."; 
-}
-
-const char* InvalidAmount::what() 
-{
-    return "Error: Invalid amount."; 
-}
-
-const char* InvalidWithdrawAmount::what()
-{
-    return "#Error: Invalid withdraw amount."; 
-}
-
-const char* InvalidBalance::what()
-{
-    return "#Error: Invalid balance.";
-}

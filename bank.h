@@ -4,6 +4,7 @@
 #include <map>
 #include "account.h"
 #include "database.h"
+#include "exception.h"
 
 class Bank
 {
@@ -25,34 +26,39 @@ class Bank
     void showAllAccounts(); 
 };
 
-class InvalidAccount : public std::exception
+class InvalidAccount : public BankException
 {
     public:
-    const char* what(); 
+    InvalidAccount(const char* const File, const int Line)
+        : BankException("#Error: Invalid Account.", File, Line) {}
 }; 
 
-class EmptyName : public std::exception
+class EmptyName : public BankException
 {
     public: 
-    const char* what(); 
+    EmptyName(const char* const File, const int Line)
+        : BankException("#Error: Empty name.", File, Line) {}
 }; 
 
-class InvalidAmount : public std::exception 
+class InvalidAmount : public BankException 
 {
     public: 
-    const char* what(); 
+    InvalidAmount(const char* const File, const int Line)
+        : BankException("#Error: Invalid amount.", File, Line) {}
 };
 
-class InvalidWithdrawAmount : public std::exception
+class InvalidWithdrawAmount : public BankException
 {
     public: 
-    const char* what(); 
+    InvalidWithdrawAmount(const char* const File, const int Line)
+        : BankException("#Error: Invalid withdraw amount.", File, Line) {}
 }; 
 
 
-class InvalidBalance : public std::exception 
+class InvalidBalance : public BankException 
 {
     public: 
-    const char* what(); 
+    InvalidBalance(const char* const File, const int Line)
+        : BankException("#Error: Invalid balance.", File, Line) {}
 };
 #endif // #ifndef __BANK_H__
